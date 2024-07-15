@@ -6,6 +6,5 @@
         public const string NoneGroupSelectedError = "Nie wybrano żadnej grupy!";
         public const string OperationCancelledError = "Anulowano! Operacja została anulowana.";
         public const string MenuCreationError = "Nie udało się utworzyć elementu menu!";
-        public const string EntriesNotFoundError = "Nie znaleziono wejść!";
     }
 }
