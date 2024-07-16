@@ -1,7 +1,7 @@
 ﻿using KeePass.Plugins;
 using System;
 using System.Windows.Forms;
-using KeePassGroupDataExport.KeePassGroupDataExport;
+using KeePassGroupDataExport.groupExport;
 
 namespace KeePassGroupDataExport
 {

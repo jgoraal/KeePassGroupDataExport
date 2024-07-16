@@ -43,8 +43,12 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="ComputerData.cs" />
         <Compile Include="ErrorMessage.cs" />
-        <Compile Include="GroupsExporter.cs" />
+        <Compile Include="groupExport\GroupsExporter.EntryOperations.cs" />
+        <Compile Include="groupExport\GroupsExporter.GroupOperations.cs" />
+        <Compile Include="groupExport\GroupsExporter.Main.cs" />
+        <Compile Include="groupExport\GroupsExporter.Utilities.cs" />
         <Compile Include="KeePassGroupDataExportExt.cs" />
         <Compile Include="MessageCreator.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
