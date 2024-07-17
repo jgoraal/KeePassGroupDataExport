@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using KeePass.Plugins;
 using KeePassLib;
 
@@ -36,13 +37,13 @@ namespace KeePassGroupDataExport.groupExport
         {
             _entriesData = GetEntriesData();
 
-            ShowExportOptionsForm();
+            PrepareData();
 
             // Debug only
             //ReadDataDebug();
         }
         
-        private void ShowExportOptionsForm()
+        private void PrepareData()
         {
             _computers = GetComputersData();
 
@@ -52,6 +53,19 @@ namespace KeePassGroupDataExport.groupExport
         private void CreateExportOptionsForm()
         {
             ShowComputerDataForm();
+
+            ShowExportDataForm();
+        }
+
+        private void ShowExportDataForm()
+        {
+            using (var exportOptionsForm = new ExportForm(ComputerData.AllKeys))
+            {
+                if (exportOptionsForm.ShowDialog() != DialogResult.OK)
+                    MessageCreator.CreateWarningMessage(ErrorMessages.OperationCancelledError);
+                
+                
+            }
         }
     }
 }
