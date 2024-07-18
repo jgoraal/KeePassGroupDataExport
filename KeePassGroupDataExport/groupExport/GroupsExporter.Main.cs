@@ -59,13 +59,37 @@ namespace KeePassGroupDataExport.groupExport
 
         private void ShowExportDataForm()
         {
+            
+            string fillEmptyFieldsText = "";
             using (var exportOptionsForm = new ExportForm(ComputerData.AllKeys))
             {
                 if (exportOptionsForm.ShowDialog() != DialogResult.OK)
+                {
                     MessageCreator.CreateWarningMessage(ErrorMessages.OperationCancelledError);
-                
+                    return;
+                }
+
+                if (exportOptionsForm.ExportOrder)
+                {
+                    ComputerData.ExportKeys = exportOptionsForm.ExportOrderKeys;
+                    fillEmptyFieldsText = exportOptionsForm.FillEmptyFields
+                        ? exportOptionsForm.FillEmptyFieldsText.Trim()
+                        : string.Empty;
+                }    
                 
             }
+            
+            
+            foreach (var computer in _computers)
+            {
+                computer.PrepareDataForExport(fillEmptyFieldsText);
+            }
+
+            foreach (var computer in _computers)
+            {
+                MessageCreator.CreateWarningMessage(computer.ExportDataCheck());
+            }
+
         }
     }
 }

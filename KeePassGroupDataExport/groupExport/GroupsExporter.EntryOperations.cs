@@ -38,6 +38,17 @@ namespace KeePassGroupDataExport.groupExport
         
         private List<ComputerData> GetComputersData()
         {
+            if (ComputerData.AllKeys != null && ComputerData.AllKeys.Any())
+            {
+                ComputerData.AllKeys.Clear();
+            }
+            
+            if (ComputerData.ExportKeys != null && ComputerData.ExportKeys.Any())
+            {
+                ComputerData.ExportKeys.Clear();
+            }
+            
+            
             var computers = new List<ComputerData>();
 
             foreach (var group in _entriesData)
