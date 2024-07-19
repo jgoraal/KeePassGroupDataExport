@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using KeePassLib.Utility;
+﻿using KeePassLib.Utility;
 
 namespace KeePassGroupDataExport
 {

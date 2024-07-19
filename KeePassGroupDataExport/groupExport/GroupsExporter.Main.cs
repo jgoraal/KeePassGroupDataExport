@@ -16,7 +16,7 @@ namespace KeePassGroupDataExport.groupExport
         private List<PwEntry> _entries;
         private ILookup<string, Dictionary<string, string>> _entriesData;
         private List<ComputerData> _computers;
-        
+
         private const int MaxSubGroupDepth = 4;
 
         internal GroupsExporter(IPluginHost host)
@@ -32,7 +32,7 @@ namespace KeePassGroupDataExport.groupExport
             _selectedSubGroups = GetSubGroups(_selectedGroup, MaxSubGroupDepth);
             ConfirmSelectedGroup();
         }
-        
+
         private void ReadDataBeforeExport()
         {
             _entriesData = GetEntriesData();
@@ -42,7 +42,7 @@ namespace KeePassGroupDataExport.groupExport
             // Debug only
             //ReadDataDebug();
         }
-        
+
         private void PrepareData()
         {
             _computers = GetComputersData();
@@ -59,8 +59,7 @@ namespace KeePassGroupDataExport.groupExport
 
         private void ShowExportDataForm()
         {
-            
-            string fillEmptyFieldsText = "";
+            string fillEmptyFieldsText;
             using (var exportOptionsForm = new ExportForm(ComputerData.AllKeys))
             {
                 if (exportOptionsForm.ShowDialog() != DialogResult.OK)
@@ -69,17 +68,12 @@ namespace KeePassGroupDataExport.groupExport
                     return;
                 }
 
-                if (exportOptionsForm.ExportOrder)
-                {
-                    ComputerData.ExportKeys = exportOptionsForm.ExportOrderKeys;
-                    fillEmptyFieldsText = exportOptionsForm.FillEmptyFields
-                        ? exportOptionsForm.FillEmptyFieldsText.Trim()
-                        : string.Empty;
-                }    
-                
+
+                ComputerData.ExportKeys = exportOptionsForm.ExportOrderKeys;
+                fillEmptyFieldsText = exportOptionsForm.FillEmptyFieldsText;
             }
-            
-            
+
+
             foreach (var computer in _computers)
             {
                 computer.PrepareDataForExport(fillEmptyFieldsText);
@@ -90,6 +84,28 @@ namespace KeePassGroupDataExport.groupExport
                 MessageCreator.CreateWarningMessage(computer.ExportDataCheck());
             }
 
+            ShowSaveFileDialog();
+        }
+
+        private void ShowSaveFileDialog()
+        {
+            using (var file = new SaveFileDialog())
+            {
+                file.Title = "Zapisz eksportowane dane";
+                file.Filter = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
+                file.CheckPathExists = true;
+
+                if (file.ShowDialog() == DialogResult.OK)
+                {
+                    CreateExcelFile(file.FileName);
+                }
+            }
+        }
+
+        private void CreateExcelFile(string filePath)
+        {
+            var excelExporter = new ExcelFileDataExporter(filePath);
+            excelExporter.CreateExcelFile(_computers);
         }
     }
 }

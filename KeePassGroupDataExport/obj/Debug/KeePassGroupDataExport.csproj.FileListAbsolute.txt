@@ -1,6 +1,5 @@
 C:\Users\yakoob\RiderProjects\KeePassGroupDataExport\KeePassGroupDataExport\bin\Debug\KeePassGroupDataExport.dll
 C:\Users\yakoob\RiderProjects\KeePassGroupDataExport\KeePassGroupDataExport\bin\Debug\KeePassGroupDataExport.pdb
-C:\Users\yakoob\RiderProjects\KeePassGroupDataExport\KeePassGroupDataExport\bin\Debug\KeePass.exe
 C:\Users\yakoob\RiderProjects\KeePassGroupDataExport\KeePassGroupDataExport\bin\Debug\KeePass.exe.config
 C:\Users\yakoob\RiderProjects\KeePassGroupDataExport\KeePassGroupDataExport\bin\Debug\KeePass.XmlSerializers.dll
 C:\Users\yakoob\RiderProjects\KeePassGroupDataExport\KeePassGroupDataExport\obj\Debug\KeePassGroupDataExport.csproj.AssemblyReference.cache
@@ -10,3 +9,5 @@ C:\Users\yakoob\RiderProjects\KeePassGroupDataExport\KeePassGroupDataExport\obj\
 C:\Users\yakoob\RiderProjects\KeePassGroupDataExport\KeePassGroupDataExport\obj\Debug\KeePassG.E72ADAB1.Up2Date
 C:\Users\yakoob\RiderProjects\KeePassGroupDataExport\KeePassGroupDataExport\obj\Debug\KeePassGroupDataExport.dll
 C:\Users\yakoob\RiderProjects\KeePassGroupDataExport\KeePassGroupDataExport\obj\Debug\KeePassGroupDataExport.pdb
+C:\Users\yakoob\RiderProjects\KeePassGroupDataExport\KeePassGroupDataExport\bin\Debug\EPPlus.dll
+C:\Users\yakoob\RiderProjects\KeePassGroupDataExport\KeePassGroupDataExport\bin\Debug\EPPlus.xml

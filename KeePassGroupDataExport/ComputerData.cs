@@ -63,10 +63,8 @@ namespace KeePassGroupDataExport
             
             Username = string.IsNullOrWhiteSpace(Username) ? emptyFieldValue : Username;
             DeviceName = string.IsNullOrWhiteSpace(DeviceName) ? emptyFieldValue : DeviceName;
-
-            var keys = ExportKeys != null && ExportKeys.Any() ? ExportKeys : AllKeys;
             
-            foreach (var key in keys)
+            foreach (var key in ExportKeys)
             {
                 if (!AdvancedInformation.ContainsKey(key) && !IsKey(key))
                 {
@@ -112,10 +110,10 @@ namespace KeePassGroupDataExport
         public string ExportDataCheck()
         {
             var sb = new StringBuilder();
-            sb.AppendLine("Eksportowane dane:\n");
+            sb.AppendLine("Eksportowane dane:");
             foreach (var key in ExportOrderData.Keys)
             {
-                sb.AppendLine($"{key}: {ExportOrderData[key]}");
+                sb.AppendLine($"  {key}: {ExportOrderData[key]}");
             }
 
             return sb.ToString();
