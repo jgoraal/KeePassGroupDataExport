@@ -32,7 +32,13 @@ namespace KeePassGroupDataExport
         public override void Terminate()
         {
         }
-
+        
+        
+        /// <summary>
+        /// Tworzy element menu dla pluginu.
+        /// </summary>
+        /// <param name="t">Typ menu pluginu.</param>
+        /// <returns>ToolStripMenuItem dla pluginu.</returns>
         public override ToolStripMenuItem GetMenuItem(PluginMenuType t)
         {
             if (t == PluginMenuType.Group)
@@ -45,7 +51,10 @@ namespace KeePassGroupDataExport
 
             return null;
         }
-
+        
+        /// <summary>
+        /// Obsługuje kliknięcie elementu menu.
+        /// </summary>
         private void ToolsMenuItemClick(object sender, EventArgs e)
         {
             try

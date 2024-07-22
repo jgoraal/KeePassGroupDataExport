@@ -7,7 +7,11 @@ namespace KeePassGroupDataExport.groupExport
 {
     internal partial class GroupsExporter
     {
-        // Pobieranie nazw podgrup do wyświetlenia
+        
+        
+        /// <summary>
+        /// Pobiera nazwy podgrup do wyświetlenia.
+        /// </summary>
         private string GetSubGroupsNames(string group)
         {
             const int maxDisplayedSubGroups = 4;
@@ -29,6 +33,9 @@ namespace KeePassGroupDataExport.groupExport
         }
         
         
+        /// <summary>
+        /// Pobiera podsumowanie znalezionych wpisów.
+        /// </summary>
         private string GetFoundEntries()
         {
             const int maxEntriesNames = 4;
@@ -47,6 +54,10 @@ namespace KeePassGroupDataExport.groupExport
             return result.ToString();
         }
         
+        
+        /// <summary>
+        /// Metoda debugowania do odczytu danych.
+        /// </summary>
         private void ReadDataDebug()
         {
             foreach (var group in _entriesData)
@@ -68,7 +79,11 @@ namespace KeePassGroupDataExport.groupExport
                     "Wartość: " + string.Join(", ", values));
             }
         }
-
+        
+        
+        /// <summary>
+        /// Wyświetla formularz danych komputera.
+        /// </summary>
         private void ShowComputerDataForm()
         {
             foreach (var computer in _computers)

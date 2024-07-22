@@ -7,6 +7,10 @@ namespace KeePassGroupDataExport.groupExport
 {
     internal partial class GroupsExporter
     {
+        
+        /// <summary>
+        /// Pobiera wpisy z wybranych podgrup.
+        /// </summary>
         private List<PwEntry> GetEntries()
         {
             var entries = _selectedSubGroups
@@ -20,6 +24,10 @@ namespace KeePassGroupDataExport.groupExport
             return entries;
         }
         
+        
+        /// <summary>
+        /// Pobiera dane wpisów jako lookup.
+        /// </summary>
         private ILookup<string, Dictionary<string, string>> GetEntriesData()
         {
             var data = _entries.ToLookup(
@@ -36,6 +44,10 @@ namespace KeePassGroupDataExport.groupExport
             return data;
         }
         
+        
+        /// <summary>
+        /// Pobiera dane komputerów z wpisów.
+        /// </summary>
         private List<ComputerData> GetComputersData()
         {
             if (ComputerData.AllKeys != null && ComputerData.AllKeys.Any())

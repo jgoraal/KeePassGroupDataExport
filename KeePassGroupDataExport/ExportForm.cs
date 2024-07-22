@@ -230,17 +230,17 @@ namespace KeePassGroupDataExport
             SelectedKeys = checkedListBox1.CheckedItems.Cast<string>().ToHashSet();
             FillEmptyFields = checkBox1.Checked;
             ExportOrder = checkBox2.Checked;
-            
+
             ExportOrderKeys = ExportOrder ? listBox1.Items.Cast<string>().ToHashSet() : SelectedKeys;
-            FillEmptyFieldsText = FillEmptyFields ? FillEmptyFieldsText.Trim() : string.Empty;
-            
+            FillEmptyFieldsText = FillEmptyFields ? textBox1.Text.Trim() : string.Empty;
+
             if (ExportOrderKeys == null || SelectedKeys == null || ExportOrderKeys.Count == 0 ||
                 SelectedKeys.Count == 0)
             {
                 Close();
                 throw new ArgumentException(ErrorMessages.NoDataToExport);
             }
-            
+
             DialogResult = DialogResult.OK;
             Close();
         }

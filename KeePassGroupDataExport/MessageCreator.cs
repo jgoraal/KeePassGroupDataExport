@@ -2,6 +2,9 @@
 
 namespace KeePassGroupDataExport
 {
+    /// <summary>
+    /// Klasa narzędziowa do tworzenia różnych typów wiadomości.
+    /// </summary>
     internal abstract class MessageCreator
     {
         public static void CreateInfoMessage(string title, params string[] content)

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace KeePassGroupDataExport
 {
+    /// <summary>
+    /// Reprezentuje dane komputera.
+    /// </summary>
     public class ComputerData
     {
         public string DeviceName { get; set; }
@@ -27,9 +30,11 @@ namespace KeePassGroupDataExport
             AdvancedInformation = new Dictionary<string, string>();
         }
 
+        /// <summary>
+        /// Dodaje zaawansowane informacje do danych komputera.
+        /// </summary>
         public void AddAdvancedInformation(string key, string value)
         {
-            
             if (IsKeyUsername(key))
             {
                 Username = value;
@@ -55,15 +60,17 @@ namespace KeePassGroupDataExport
 
         private bool IsKeyTitle(string key) => key.Equals("Title", StringComparison.OrdinalIgnoreCase);
 
-
+        /// <summary>
+        /// Przygotowuje dane do eksportu.
+        /// </summary>
         public void PrepareDataForExport(string emptyFieldValue)
         {
             if (ExportOrderData.Any())
                 ExportOrderData.Clear();
-            
+
             Username = string.IsNullOrWhiteSpace(Username) ? emptyFieldValue : Username;
             DeviceName = string.IsNullOrWhiteSpace(DeviceName) ? emptyFieldValue : DeviceName;
-            
+
             foreach (var key in ExportKeys)
             {
                 if (!AdvancedInformation.ContainsKey(key) && !IsKey(key))
@@ -91,7 +98,9 @@ namespace KeePassGroupDataExport
 
         private bool IsKey(string key) => key.Equals("Użytkownik") || key.Equals("Komputer");
 
-
+        /// <summary>
+        /// Zwraca stringową reprezentację danych komputera.
+        /// </summary>
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -107,6 +116,9 @@ namespace KeePassGroupDataExport
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Sprawdza dane do eksportu.
+        /// </summary>
         public string ExportDataCheck()
         {
             var sb = new StringBuilder();

@@ -6,13 +6,21 @@ namespace KeePassGroupDataExport.groupExport
 {
     internal partial class GroupsExporter
     {
+        
+        /// <summary>
+        /// Pobiera wybraną grupę z KeePass.
+        /// </summary>
+        /// <returns>Wybrana grupa PwGroup.</returns>
         private PwGroup GetSelectedGroup()
         {
             return _host.MainWindow.GetSelectedGroup() ??
                    throw new NullReferenceException(ErrorMessages.NoneGroupSelectedError);
         }
 
-        //BFS algorytm
+        
+        /// <summary>
+        /// Pobiera podgrupy przy użyciu algorytmu BFS.
+        /// </summary>
         private List<PwGroup> GetSubGroups(PwGroup rootGroup, int maxDepth)
         {
             var allSubGroups = new List<PwGroup>();
@@ -43,7 +51,10 @@ namespace KeePassGroupDataExport.groupExport
             return allSubGroups;
         }
 
-        // Potwierdzenie wybranej grupy przez użytkownika
+        
+        /// <summary>
+        /// Potwierdza wybraną grupę z użytkownikiem.
+        /// </summary>
         private void ConfirmSelectedGroup()
         {
             const string title = "Wybór Grupy";
@@ -58,7 +69,10 @@ namespace KeePassGroupDataExport.groupExport
                 MessageCreator.CreateWarningMessage(ErrorMessages.OperationCancelledError);
         }
 
-        // Obsługa podgrup
+        
+        /// <summary>
+        /// Obsługuje sprawdzanie podgrup i wyświetla komunikat dla użytkownika.
+        /// </summary>
         private void CreateSubGroupsCheckMessage()
         {
             _entries = GetEntries();

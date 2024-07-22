@@ -1,5 +1,8 @@
 ﻿namespace KeePassGroupDataExport
 {
+    /// <summary>
+    /// Zawiera stałe komunikaty błędów.
+    /// </summary>
     public static class ErrorMessages
     {
         public const string HostError = "Host nie może być null!";

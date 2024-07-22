@@ -7,6 +7,9 @@ using OfficeOpenXml.Style;
 
 namespace KeePassGroupDataExport
 {
+    /// <summary>
+    /// Klasa odpowiedzialna za tworzenie pliku Excel z danymi komputerów.
+    /// </summary>
     internal class ExcelFileDataExporter
     {
         private string Path { get; set; }
@@ -19,23 +22,27 @@ namespace KeePassGroupDataExport
             Path = path;
         }
 
-
+        /// <summary>
+        /// Tworzy plik Excel z danymi komputerów.
+        /// </summary>
         public void CreateExcelFile(List<ComputerData> computersData)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            
+
             DataRows = computersData.Count;
             DataCols = ComputerData.ExportKeys.Count;
             ExportKeys = ComputerData.ExportKeys.ToList();
-            
-            MessageCreator.CreateWarningMessage(string.Join(", ",ExportKeys));
+
+            MessageCreator.CreateWarningMessage(string.Join(", ", ExportKeys));
 
             using (var package = new ExcelPackage())
             {
                 var sheet = package.Workbook.Worksheets.Add("Zestawienie sprzętu");
 
-                PromptKeysToSheet(sheet);
-                
+                InsertKeysToSheet(sheet);
+
+                InsertDataToSheet(sheet, computersData);
+
                 sheet.Cells["A:XFD"].AutoFitColumns();
 
                 var excelFile = new FileInfo(Path);
@@ -43,7 +50,10 @@ namespace KeePassGroupDataExport
             }
         }
 
-        private void PromptKeysToSheet(ExcelWorksheet sheet)
+        /// <summary>
+        /// Wstawia klucze do arkusza Excel.
+        /// </summary>
+        private void InsertKeysToSheet(ExcelWorksheet sheet)
         {
             for (var col = 1; col < DataCols + 2; col++)
             {
@@ -60,15 +70,33 @@ namespace KeePassGroupDataExport
                 cellStyle.VerticalAlignment = ExcelVerticalAlignment.Center;
                 cellStyle.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
             }
-            
+
             // Ustawienie wartości w pierwszej kolumnie (L.P)
-            for (var i = 2; i <= DataRows; i++)
+            for (var i = 2; i <= DataRows + 1; i++)
             {
                 var cell = sheet.Cells[$"A{i}"];
                 cell.Value = $"{i - 1}";
                 cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 cell.Style.Font.Name = "Arial";
                 cell.Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
+            }
+        }
+
+        /// <summary>
+        /// Wstawia dane do arkusza Excel.
+        /// </summary>
+        private void InsertDataToSheet(ExcelWorksheet sheet, List<ComputerData> data)
+        {
+            for (int i = 0; i < DataRows; i++)
+            {
+                for (int j = 0; j < DataCols; j++)
+                {
+                    var cell = sheet.Cells[i + 2, j + 2];
+                    cell.Value = data[i].ExportOrderData[ExportKeys[j]];
+                    cell.Style.Border.BorderAround(ExcelBorderStyle.Thin,Color.Black);
+                    cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    cell.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                }
             }
         }
     }

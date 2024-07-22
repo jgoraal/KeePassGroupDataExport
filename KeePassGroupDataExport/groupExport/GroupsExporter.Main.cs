@@ -23,8 +23,11 @@ namespace KeePassGroupDataExport.groupExport
         {
             _host = host ?? throw new ArgumentNullException(ErrorMessages.HostError);
         }
+        
 
-        // Sprawdzanie wybranej grupy
+        /// <summary>
+        /// Sprawdza wybraną grupę i kontynuuje proces eksportu.
+        /// </summary>
         internal void SelectedGroupCheckMessage()
         {
             _selectedGroup = GetSelectedGroup();
