@@ -23,7 +23,7 @@ namespace KeePassGroupDataExport.groupExport
         {
             _host = host ?? throw new ArgumentNullException(ErrorMessages.HostError);
         }
-        
+
 
         /// <summary>
         /// Sprawdza wybraną grupę i kontynuuje proces eksportu.
@@ -55,8 +55,7 @@ namespace KeePassGroupDataExport.groupExport
 
         private void CreateExportOptionsForm()
         {
-            ShowComputerDataForm();
-
+            //ShowComputerDataForm();
             ShowExportDataForm();
         }
 
@@ -71,20 +70,13 @@ namespace KeePassGroupDataExport.groupExport
                     return;
                 }
 
-
                 ComputerData.ExportKeys = exportOptionsForm.ExportOrderKeys;
                 fillEmptyFieldsText = exportOptionsForm.FillEmptyFieldsText;
             }
-
-
+            
             foreach (var computer in _computers)
             {
                 computer.PrepareDataForExport(fillEmptyFieldsText);
-            }
-
-            foreach (var computer in _computers)
-            {
-                MessageCreator.CreateWarningMessage(computer.ExportDataCheck());
             }
 
             ShowSaveFileDialog();

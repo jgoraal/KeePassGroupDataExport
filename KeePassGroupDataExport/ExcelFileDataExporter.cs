@@ -33,8 +33,6 @@ namespace KeePassGroupDataExport
             DataCols = ComputerData.ExportKeys.Count;
             ExportKeys = ComputerData.ExportKeys.ToList();
 
-            MessageCreator.CreateWarningMessage(string.Join(", ", ExportKeys));
-
             using (var package = new ExcelPackage())
             {
                 var sheet = package.Workbook.Worksheets.Add("Zestawienie sprzętu");
