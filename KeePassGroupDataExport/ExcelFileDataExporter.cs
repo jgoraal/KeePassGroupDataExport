@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -90,7 +91,28 @@ namespace KeePassGroupDataExport
                 for (int j = 0; j < DataCols; j++)
                 {
                     var cell = sheet.Cells[i + 2, j + 2];
-                    cell.Value = data[i].ExportOrderData[ExportKeys[j]];
+                    var value = data[i].ExportOrderData[ExportKeys[j]];
+                    
+                    if (int.TryParse(value, out int intValue))
+                    {
+                        cell.Value = intValue;
+                        cell.Style.Numberformat.Format = "0"; 
+                    }
+                    else if (double.TryParse(value, out double doubleValue))
+                    {
+                        cell.Value = doubleValue;
+                        cell.Style.Numberformat.Format = "0.00"; 
+                    }
+                    else if (DateTime.TryParse(value, out DateTime dateValue))
+                    {
+                        cell.Value = dateValue;
+                        cell.Style.Numberformat.Format = "dd-mm-yyyy";
+                    }
+                    else
+                    {
+                        cell.Value = value;
+                    }
+                    
                     cell.Style.Border.BorderAround(ExcelBorderStyle.Thin,Color.Black);
                     cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     cell.Style.VerticalAlignment = ExcelVerticalAlignment.Center;

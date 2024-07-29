@@ -89,6 +89,7 @@ namespace KeePassGroupDataExport.groupExport
                 file.Title = "Zapisz eksportowane dane";
                 file.Filter = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
                 file.CheckPathExists = true;
+                file.FileName = $"{_host.Database.Name}_{_selectedGroup.Name}.xlsx";
 
                 if (file.ShowDialog() == DialogResult.OK)
                 {

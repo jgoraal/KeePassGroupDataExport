@@ -35,11 +35,9 @@ namespace KeePassGroupDataExport
             button2 = new Button();
             button3 = new Button();
             button4 = new Button();
+            button5 = new Button();
+            button6 = new Button();
             SuspendLayout();
-            // 
-            // _checkedListBox
-            // 
-
             // 
             // checkedListBox1
             // 
@@ -47,7 +45,7 @@ namespace KeePassGroupDataExport
             checkedListBox1.FormattingEnabled = true;
             checkedListBox1.Location = new Point(12, 28);
             checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(199, 139);
+            checkedListBox1.Size = new Size(191, 139);
             checkedListBox1.TabIndex = 0;
             checkedListBox1.ItemCheck += CheckedListBox_ItemCheck;
             // 
@@ -104,7 +102,7 @@ namespace KeePassGroupDataExport
             listBox1.FormattingEnabled = true;
             listBox1.Location = new Point(12, 246);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(199, 95);
+            listBox1.Size = new Size(191, 95);
             listBox1.TabIndex = 7;
             // 
             // checkBox2
@@ -122,7 +120,7 @@ namespace KeePassGroupDataExport
             // 
             button1.AutoSize = true;
             button1.Enabled = false;
-            button1.Location = new Point(217, 263);
+            button1.Location = new Point(209, 262);
             button1.Name = "button1";
             button1.Size = new Size(62, 23);
             button1.TabIndex = 9;
@@ -134,7 +132,7 @@ namespace KeePassGroupDataExport
             // 
             button2.AutoSize = true;
             button2.Enabled = false;
-            button2.Location = new Point(217, 291);
+            button2.Location = new Point(209, 291);
             button2.Name = "button2";
             button2.Size = new Size(62, 23);
             button2.TabIndex = 10;
@@ -164,10 +162,31 @@ namespace KeePassGroupDataExport
             button4.UseVisualStyleBackColor = true;
             button4.Click += ButtonCancel_Click;
             // 
+            // button5
+            // 
+            button5.Location = new Point(209, 43);
+            button5.Name = "button5";
+            button5.Size = new Size(103, 22);
+            button5.TabIndex = 13;
+            button5.Text = "Zaznacz wszystko";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
+            // 
+            // button6
+            // 
+            button6.Location = new Point(209, 71);
+            button6.Name = "button6";
+            button6.Size = new Size(103, 22);
+            button6.TabIndex = 14;
+            button6.Text = "Odznacz wszystko";
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
+            // 
             // ExportForm
             // 
             AutoSize = true;
             ClientSize = new Size(316, 396);
+            Controls.Add(button6);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
@@ -180,14 +199,19 @@ namespace KeePassGroupDataExport
             Controls.Add(checkBox1);
             Controls.Add(label1);
             Controls.Add(checkedListBox1);
+            Controls.Add(button5);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ExportForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Opcje Eksportu";
+            Text = "Opcje eksportu";
             ResumeLayout(false);
             PerformLayout();
         }
+
+        private Button button5;
+        private Button button6;
 
 
         private Label label4;
@@ -308,6 +332,22 @@ namespace KeePassGroupDataExport
             listBox1.Items.Remove(keyName);
             listBox1.Items.Insert(newIndex, keyName);
             listBox1.SetSelected(newIndex, true);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            {
+                checkedListBox1.SetItemChecked(i,true);
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            {
+                checkedListBox1.SetItemChecked(i,false);
+            }
         }
     }
 }
