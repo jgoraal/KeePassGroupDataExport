@@ -81,5 +81,9 @@
     <Target Name="AfterBuild">
     </Target>
     -->
+    <Target Name="AfterBuild">
+        <!-- Skopiuj plik DLL do folderu Plugins -->
+        <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFolder="C:\Users\yakoob\OneDrive\Pulpit\KeePass\Plugins" />
+    </Target>
 
 </Project>

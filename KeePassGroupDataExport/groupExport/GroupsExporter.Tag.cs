@@ -27,6 +27,8 @@ namespace KeePassGroupDataExport.groupExport
                     if (!string.IsNullOrEmpty(selectedTag))
                     {
                         _entries = GetEntriesByTag(selectedTag);
+                        MessageCreator.CreateInfoMessage("Znaleziony wpisy!",
+                            $"Znaleziono {_entries.Count} wpisy po tagu: {selectedTag}");
                         ReadDataBeforeExport();
                     }
                     else
@@ -45,22 +47,42 @@ namespace KeePassGroupDataExport.groupExport
         {
             var entries = _selectedSubGroups
                 .SelectMany(subGroup => subGroup.Entries)
-                .Where(entry => entry.Tags.Contains(tag))
+                .Where(entry => entry.Tags != null && entry.Tags.Contains(tag))
                 .ToList();
+
+
+            if (_selectedGroup.Entries.Any())
+            {
+                entries.AddRange(
+                    _selectedGroup.Entries
+                        .Where(entry => entry.Tags != null && entry.Tags.Contains(tag))
+                );
+            }
+
 
             if (!entries.Any())
                 throw new ApplicationException(ErrorMessages.EntriesNotFoundError);
+
 
             return entries;
         }
 
         private List<string> GetUniqueTags()
         {
-            var unique =  _selectedSubGroups
+            var unique = _selectedSubGroups
                 .SelectMany(subGroup => subGroup.Entries)
-                .SelectMany(entry => entry.Tags)
+                .SelectMany(entry => entry?.Tags ?? new List<string>())
                 .Distinct()
                 .ToList();
+
+            if (_selectedGroup.Entries.Any())
+            {
+                unique.AddRange(
+                    _selectedGroup.Entries
+                        .SelectMany(entry => entry.Tags ?? new List<string>())
+                        .Distinct()
+                );
+            }
 
             if (!unique.Any())
             {

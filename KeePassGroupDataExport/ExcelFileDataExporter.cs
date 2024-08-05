@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
@@ -17,10 +19,12 @@ namespace KeePassGroupDataExport
         private int DataRows { get; set; }
         private int DataCols { get; set; }
         private List<string> ExportKeys { get; set; }
+        private bool MustOpenFile { get; set; }
 
-        public ExcelFileDataExporter(string path)
+        public ExcelFileDataExporter(string path, bool openFileAfterSave)
         {
             Path = path;
+            MustOpenFile = openFileAfterSave;
         }
 
         /// <summary>
@@ -46,9 +50,14 @@ namespace KeePassGroupDataExport
 
                 var excelFile = new FileInfo(Path);
                 package.SaveAs(excelFile);
+
+                if (MustOpenFile)
+                {
+                    OpenSavedFile();
+                }
             }
         }
-
+        
         /// <summary>
         /// Wstawia klucze do arkusza Excel.
         /// </summary>
@@ -117,6 +126,18 @@ namespace KeePassGroupDataExport
                     cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     cell.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                 }
+            }
+        }
+        
+        private void OpenSavedFile()
+        {
+            try
+            {
+                Process.Start(Path);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Nie udało się otworzyć pliku: {ex.Message}", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

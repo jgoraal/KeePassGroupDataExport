@@ -62,6 +62,7 @@ namespace KeePassGroupDataExport.groupExport
         private void ShowExportDataForm()
         {
             string fillEmptyFieldsText;
+            bool openFileAfterSave;
             using (var exportOptionsForm = new ExportForm(ComputerData.AllKeys))
             {
                 if (exportOptionsForm.ShowDialog() != DialogResult.OK)
@@ -72,6 +73,7 @@ namespace KeePassGroupDataExport.groupExport
 
                 ComputerData.ExportKeys = exportOptionsForm.ExportOrderKeys;
                 fillEmptyFieldsText = exportOptionsForm.FillEmptyFieldsText;
+                openFileAfterSave = exportOptionsForm.OpenFileAfterSave;
             }
             
             foreach (var computer in _computers)
@@ -79,10 +81,10 @@ namespace KeePassGroupDataExport.groupExport
                 computer.PrepareDataForExport(fillEmptyFieldsText);
             }
 
-            ShowSaveFileDialog();
+            ShowSaveFileDialog(openFileAfterSave);
         }
 
-        private void ShowSaveFileDialog()
+        private void ShowSaveFileDialog(bool openFile)
         {
             using (var file = new SaveFileDialog())
             {
@@ -93,14 +95,14 @@ namespace KeePassGroupDataExport.groupExport
 
                 if (file.ShowDialog() == DialogResult.OK)
                 {
-                    CreateExcelFile(file.FileName);
+                    CreateExcelFile(file.FileName, openFile);
                 }
             }
         }
 
-        private void CreateExcelFile(string filePath)
+        private void CreateExcelFile(string filePath, bool openFile)
         {
-            var excelExporter = new ExcelFileDataExporter(filePath);
+            var excelExporter = new ExcelFileDataExporter(filePath, openFile);
             excelExporter.CreateExcelFile(_computers);
         }
     }
