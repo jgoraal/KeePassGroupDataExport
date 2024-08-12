@@ -1,5 +1,7 @@
 ﻿using KeePass.Plugins;
 using System;
+using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 using KeePassGroupDataExport.groupExport;
 
@@ -44,13 +46,16 @@ namespace KeePassGroupDataExport
             {
                 var tsMenuItem = new ToolStripMenuItem();
                 tsMenuItem.Text = "Eksportuj Wybraną Grupę";
+                GetIconStream(tsMenuItem, "KeePassGroupDataExport.Resources.group_icon.png");
                 tsMenuItem.Click += ToolsMenuItemClick;
 
                 var tsMenuItemByTag = new ToolStripMenuItem();
                 tsMenuItemByTag.Text = "Eksportuj Po Tagu";
+                GetIconStream(tsMenuItemByTag, "KeePassGroupDataExport.Resources.tag_icon.png");
                 tsMenuItemByTag.Click += ToolsMenuItemByTagClick;
 
                 var mainMenuItem = new ToolStripMenuItem("Opcje Eksportu");
+                GetIconStream(mainMenuItem, "KeePassGroupDataExport.Resources.export_icon.png");
                 mainMenuItem.DropDownItems.Add(tsMenuItem);
                 mainMenuItem.DropDownItems.Add(tsMenuItemByTag);
 
@@ -102,6 +107,19 @@ namespace KeePassGroupDataExport
             catch (Exception others)
             {
                 MessageCreator.CreateErrorMessage(others.Message);
+            }
+        }
+
+
+        private void GetIconStream(ToolStripMenuItem menu,string resource)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            using (var stream = assembly.GetManifestResourceStream(resource))
+            {
+                if (stream != null)
+                {
+                    menu.Image = Image.FromStream(stream);
+                }
             }
         }
     }
